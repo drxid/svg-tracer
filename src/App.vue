@@ -9,6 +9,7 @@ import EmptyState from '@/components/shell/EmptyState.vue'
 import TitleBar from '@/components/shell/TitleBar.vue'
 import { useApp } from '@/composables/useApp'
 import { useTheme } from '@/composables/useTheme'
+import { useUpdater } from '@/composables/useUpdater'
 import { MODES } from '@/lib/modes'
 import { onFileDrop } from '@/lib/tauri'
 import 'vue-sonner/style.css'
@@ -32,12 +33,14 @@ const {
   undo,
 } = useApp()
 const { isDark } = useTheme()
+const { startUpdateCheck } = useUpdater()
 
 const canvas = ref<InstanceType<typeof Canvas>>()
 const dragging = ref(false)
 
 onMounted(() => {
   void startup()
+  startUpdateCheck()
   void onFileDrop({
     over: () => dragging.value = true,
     leave: () => dragging.value = false,

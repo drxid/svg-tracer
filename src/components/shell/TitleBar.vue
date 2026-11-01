@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { Check, Download, Minus, Moon, RotateCw, Square, Sun, X } from 'lucide-vue-next'
+import { Check, Download, Minus, Moon, RefreshCw, RotateCw, Square, Sun, X } from 'lucide-vue-next'
 import { computed } from 'vue'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { useApp } from '@/composables/useApp'
 import { useTheme } from '@/composables/useTheme'
+import { useUpdater } from '@/composables/useUpdater'
 import { appWindow } from '@/lib/tauri'
 
 const { image, potrace, potraceSettled, retryModules } = useApp()
 const { isDark, toggleTheme } = useTheme()
+const { readyVersion, installing, installUpdate } = useUpdater()
 
 const WINDOW_BUTTONS = [
   { icon: Minus, label: 'Свернуть', action: appWindow.minimize },
@@ -67,6 +69,18 @@ const pillLabel = computed(() => {
           </div>
         </PopoverContent>
       </Popover>
+
+      <button
+        v-if="readyVersion"
+        type="button"
+        class="mr-2 flex h-7 items-center gap-1.5 rounded-full bg-ink px-3 text-xs text-bg outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-60"
+        :disabled="installing"
+        :title="`Приложение закроется, обновится до версии ${readyVersion} и откроется снова`"
+        @click="installUpdate"
+      >
+        <RefreshCw class="size-3.5" :class="{ 'animate-spin': installing }" />
+        {{ installing ? 'Устанавливаю…' : 'Обновить и перезапустить' }}
+      </button>
 
       <Button variant="ghost" size="icon" class="rounded-full" aria-label="Сменить тему" @click="toggleTheme()">
         <Sun v-if="isDark" class="size-4" />
