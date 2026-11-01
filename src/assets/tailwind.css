@@ -1,0 +1,151 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource-variable/inter/index.css";
+@import "@fontsource-variable/jetbrains-mono/index.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --bg: #FDFCFC;
+  --surface: #F5F3F1;
+  --surface-2: #EBE8E4;
+  --raised: #FFFFFF;
+  --ink: #000000;
+  --ink-2: #59544F;
+  --ink-3: #8C857E;
+  --line: rgba(0, 0, 0, .08);
+  --danger: #B42318;
+  --warn: #B45309;
+  --ok: #1F7A4D;
+  --shadow-raise: 0 0 0 .5px rgba(0, 0, 0, .125), 0 1px 1px rgba(0, 0, 0, .04), 0 2px 6px rgba(0, 0, 0, .04);
+  --check-a: #FFFFFF;
+  --check-b: #EFEDEA;
+
+  --radius: 0.625rem;
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--raised);
+  --card-foreground: var(--ink);
+  --popover: var(--raised);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--bg);
+  --secondary: var(--surface);
+  --secondary-foreground: var(--ink);
+  --muted: var(--surface);
+  --muted-foreground: var(--ink-2);
+  --accent: var(--surface);
+  --accent-foreground: var(--ink);
+  --destructive: var(--danger);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--ink-2);
+}
+
+.dark {
+  --bg: #121110;
+  --surface: #1B1A18;
+  --surface-2: #272523;
+  --raised: #2E2C29;
+  --ink: #F7F5F2;
+  --ink-2: #A8A29C;
+  --ink-3: #78716A;
+  --line: rgba(255, 255, 255, .09);
+  --danger: #F87171;
+  --warn: #F5A524;
+  --ok: #3DDC84;
+  --shadow-raise: 0 0 0 .5px rgba(255, 255, 255, .1), 0 2px 6px rgba(0, 0, 0, .4);
+  --check-a: #1F1E1C;
+  --check-b: #2A2826;
+}
+
+@theme inline {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-raised: var(--raised);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-danger: var(--danger);
+  --color-warn: var(--warn);
+  --color-ok: var(--ok);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --shadow-raise: var(--shadow-raise);
+  --ease-ui: cubic-bezier(.4, 0, .2, 1);
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html, body, #app {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+  }
+}
+
+.bg-checker {
+  background-color: var(--check-a);
+  background-image: conic-gradient(var(--check-b) 25%, transparent 0 50%, var(--check-b) 0 75%, transparent 0);
+  background-size: 20px 20px;
+}
+
+.run-line {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 30%;
+  background: var(--ink);
+  animation: run-line 1s var(--ease-ui) infinite;
+}
+
+@keyframes run-line {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(340%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}

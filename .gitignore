@@ -1,0 +1,14 @@
+node_modules
+dist
+.venv
+__pycache__
+src-tauri/target
+.playwright-mcp
+*.local
+src-tauri/gen
+tests/fixtures/generated
+tests/fixtures/report.json
+release
+SPEC.md
+*.key
+*.key.pub
