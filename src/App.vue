@@ -51,6 +51,10 @@ onMounted(() => {
   })
 })
 
+// В окне приложения браузерное меню с «Обновить» и «Исследовать» только мешает.
+if (!import.meta.env.DEV)
+  useEventListener(window, 'contextmenu', (event: MouseEvent) => event.preventDefault())
+
 useEventListener(window, 'paste', (event: ClipboardEvent) => {
   const file = event.clipboardData?.files[0]
   if (file?.type.startsWith('image/'))
